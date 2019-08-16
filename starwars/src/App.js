@@ -13,8 +13,6 @@ const StyleCompP = styled.p`
   font-size: 1.8rem;
 `;
 
-
-
 const App = () => {
   // Try to think through what state you'll need for this app before starting. Then build out
   // the state properties here.
@@ -26,14 +24,15 @@ const App = () => {
   useEffect(() => {
     axios.get("https://swapi.co/api/people/")
     .then(res => {
-      setData(res.data);
-      console.log(res.data);
+      setData(res.data.results);
+      console.log(res.data.results);
     });
   }, []);
 
   return (
     <div className="App">
       <StyleCompH className="Header">React Wars</StyleCompH>
+      {(data)?data.map(i => (<StyleCompP key={i.name}> {i.name} <br></br> {i.birth_year} </StyleCompP>)):null}
     </div>
   );
 }
